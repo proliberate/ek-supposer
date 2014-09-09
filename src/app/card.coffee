@@ -28,3 +28,6 @@ window.Card = class Card
 
   add_effect: (effect) ->
     @effects.push effect
+
+  total_attack_score: ->
+    @base_attack + @attack_per_level * @level

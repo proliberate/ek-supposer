@@ -86,6 +86,11 @@ describe 'Card', ->
       card = new Card(base_hp: 100, hp_per_level: 20, level: 2)
       expect(card.max_hp()).toEqual 140
 
+  describe '#total_attack_score', ->
+    it "returns the card's calculated attack score as an integer", ->
+      card = new Card(base_attack: 100, attack_per_level: 20, level: 2)
+      expect(card.total_attack_score()).toEqual 140
+
   describe '#take_damage', ->
     it 'increases the value of #damage_taken by the given amount', ->
       card = new Card()
