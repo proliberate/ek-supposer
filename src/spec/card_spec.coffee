@@ -59,11 +59,32 @@ describe 'Card', ->
     it 'returns the name of the card\'s level 15 ability as a string', ->
       card = new Card(level_0_ability: "Test Ability 4")
       expect(card.level_0_ability).toEqual "Test Ability 4"
-    
-      
-      
-    
-      
-    
-      
-    
+
+  describe '#level', ->
+    it 'returns the card\'s level as an integer', ->
+      card = new Card(level: 5)
+      expect(card.level).toEqual 5
+
+  describe '#max_hp', ->
+    it 'returns the card\'s calculated max HP as an integer', ->
+      card = new Card(base_hp: 100, hp_per_level: 20, level: 2)
+      expect(card.max_hp).toEqual 140
+
+  describe '#damage_taken', ->
+    it 'returns the amount of damage the card has taken as an integer', ->
+      card = new Card()
+      card.take_damage 100
+      expect(card.damage_taken).toEqual 100
+
+  describe '#take_damage', ->
+    it 'increases the value of #damage_taken by the given amount', ->
+      card = new Card()
+      card.take_damage 100
+      expect(card.damage_taken).toEqual 100
+
+  describe '#dead', ->
+    it 'returns true if #damage_taken exceeds #max_hp, else false', ->
+      card = new Card(base_hp: 500)
+      expect(card.dead).toBe false
+      card.take_damage 500
+      expect(card.dead).toBe true
