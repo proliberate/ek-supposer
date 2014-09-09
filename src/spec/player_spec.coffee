@@ -65,7 +65,7 @@ describe 'Player', ->
     player1 = new Player()
     player2 = new Player()
 
-    it 'increases defending card\'s damage by adjacent attacking card\'s attack', ->
+    it 'increases defending card\'s damage_taken by adjacent attacking card\'s attack', ->
       player1.field.push new Card(card)
       player2.field.push new Card(card2)
       player1.attack(player2)
@@ -73,7 +73,31 @@ describe 'Player', ->
       expect(player2.field[0].damage_taken).toEqual 50
 
 
-    it 'increases defending player\'s damage by the summed attack of unadjacent attacking cards', ->
+    it 'increases defending player\'s damage_taken by the summed attack of non-adjacent attacking cards', ->
       player1.field.push new Card(card)
       player1.attack(player2)
       expect(player2.damage_taken).toEqual 50
+
+  describe '#take_turn', ->
+    player1 = new Player()
+    player2 = new Player()
+    it 'takes a turn'
+
+  describe '#dead', ->
+    it 'returns true if damage_taken exceeds max_hp', ->
+      player = new Player(base_hp: 100)
+      player.take_damage 100
+      expect(player.dead()).toBe true
+
+    it 'returns true if the player has no cards', ->
+      player = new Player
+      expect(player.out_of_cards()).toBe true
+      expect(player.dead()).toBe true
+
+  describe '#out_of_cards', ->
+    it "returns true if the player has no cards", ->
+      player = new Player
+      expect(player.deck.length).toEqual 0
+      expect(player.hand.length).toEqual 0
+      expect(player.field.length).toEqual 0
+      expect(player.out_of_cards()).toBe true
