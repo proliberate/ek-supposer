@@ -67,22 +67,36 @@ describe 'Card', ->
         card = new Card(level: 5)
         expect(card.level).toEqual 5
 
+  describe 'properties', ->
+
+    describe 'damage_taken', ->
+      it 'returns the amount of damage the card has taken as an integer', ->
+        card = new Card()
+        card.take_damage 100
+        expect(card.damage_taken).toEqual 100
+
+    describe 'effects', ->
+      it 'returns a list of effects applied to this card as an Array of strings', ->
+        card = new Card()
+        card.add_effect "test effect"
+        expect(card.effects).toEqual ["test effect"]
+
   describe '#max_hp', ->
     it 'returns the card\'s calculated max HP as an integer', ->
       card = new Card(base_hp: 100, hp_per_level: 20, level: 2)
       expect(card.max_hp()).toEqual 140
-
-  describe '#damage_taken', ->
-    it 'returns the amount of damage the card has taken as an integer', ->
-      card = new Card()
-      card.take_damage 100
-      expect(card.damage_taken).toEqual 100
 
   describe '#take_damage', ->
     it 'increases the value of #damage_taken by the given amount', ->
       card = new Card()
       card.take_damage 100
       expect(card.damage_taken).toEqual 100
+
+  describe '#add_effect', ->
+    it 'adds the given value to the card\'s effects list', ->
+      card = new Card()
+      card.add_effect "test effect"
+      expect(card.effects).toEqual ["test effect"]
 
   describe '#dead', ->
     it 'returns true if #damage_taken exceeds #max_hp, else false', ->
