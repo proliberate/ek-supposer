@@ -14,6 +14,7 @@ window.Card = class Card
     @level_10_ability = options['level_10_ability'] or 0
     @level_15_ability = options['level_15_ability'] or 0
     @damage_taken = 0
+    @effects = []
 
   take_damage: (amount) ->
     @damage_taken += amount
@@ -24,3 +25,6 @@ window.Card = class Card
 
   dead: ->
     @damage_taken >= @max_hp()
+
+  add_effect: (effect) ->
+    @effects.push effect
