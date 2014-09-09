@@ -29,16 +29,18 @@ describe 'Player', ->
         deck = [{name: 'Test Card'}]
         player = new Player(deck: deck)
         player.draw_card()
-        expect(player.hand[0]).toEqual jasmine.any(Card)
+        expect(player.hand instanceof Array).toBe true
+        expect(player.hand[0] instanceof Card).toBe true
 
   describe '#draw_card', ->
-    beforeEach ->
-      deck = [{name: 'Test Card'}]
-      player = new Player(deck: deck)
-      player.draw_card()
+    deck = [{name: 'Test Card'}]
+    player = new Player(deck: deck)
 
     it 'removes an object at a random index from the deck', ->
-      expect(player.deck.length).toBeLessThan deck.length
+      player.draw_card()
+      expect(player.deck.length).toEqual 0
 
     it 'initializes a new Card using the object, and adds that Card to the hand', ->
-      expect(player.hand[0]).toEqual jasmine.any(Card)
+      player.draw_card()
+      expect(player.hand[0] instanceof Card).toBe true
+      expect(player.hand[0].name).toEqual 'Test Card'
