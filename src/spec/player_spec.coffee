@@ -32,6 +32,14 @@ describe 'Player', ->
         expect(player.hand instanceof Array).toBe true
         expect(player.hand[0] instanceof Card).toBe true
 
+  describe 'properties', ->
+
+    describe 'damage_taken', ->
+      it 'returns the amount of damage the player has taken as an integer', ->
+        player = new Player
+        player.take_damage 500
+        expect(player.damage_taken).toEqual 500
+
   describe '#draw_card', ->
     deck = [{name: 'Test Card'}]
     player = new Player(deck: deck)
@@ -44,3 +52,28 @@ describe 'Player', ->
       player.draw_card()
       expect(player.hand[0] instanceof Card).toBe true
       expect(player.hand[0].name).toEqual 'Test Card'
+
+  describe '#take_damage', ->
+    it 'increases the value of damage_taken by the given amount', ->
+      player = new Player
+      player.take_damage 500
+      expect(pl.damage_taken).toEqual 500
+
+  describe '#attack', ->
+    card = { name: 'Test Card 1', base_hp: 500, base_attack: 50 }
+    card2 = { name: 'Test Card 2', base_hp: 500, base_attack: 70 }
+    player1 = new Player
+    player2 = new Player
+
+    it 'increases defending card\'s damage by adjacent attacking card\'s attack', ->
+      player1.field.push new Card(card)
+      player2.field.push new Card(card2)
+      player1.attack(player2)
+      expect(player2.damage_taken).toEqual 0
+      expect(player2.hand[0].damage_taken).toEqual 50
+
+
+    it 'increases defending player\'s damage by the summed attack of unadjacent attacking cards', ->
+      player1.field.push new Card(card)
+      player1.attack(player2)
+      expect(player2.damage_taken).toEqual 50
