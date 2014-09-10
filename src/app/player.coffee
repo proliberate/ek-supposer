@@ -2,6 +2,7 @@ window.Player = class Player
   constructor: (options={}) ->
     @name = options['name'] or ''
     @level = options['level'] or 0
+    @hp = options['hp'] or 0
     @deck = options['deck'] or []
     @runes = options['runes'] or []
     @hand = []
@@ -23,3 +24,9 @@ window.Player = class Player
         opponent.take_damage card.total_attack_score()
       else
         opponent.field[index].take_damage card.total_attack_score()
+
+  dead: ->
+    (@damage_taken >= @hp) or @out_of_cards()
+
+  out_of_cards: ->
+    @hand.length + @deck.length + @field.length == 0

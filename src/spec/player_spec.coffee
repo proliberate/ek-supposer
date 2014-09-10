@@ -12,6 +12,11 @@ describe 'Player', ->
         player = new Player(level: 10)
         expect(player.level).toEqual 10
 
+    describe 'hp', ->
+      it "returns the player's HP as an integer", ->
+        player = new Player(hp: 1000)
+        expect(player.hp).toEqual 1000
+
     describe 'deck', ->
       it 'returns the player\'s deck as an Array of objects', ->
         deck = [{name: 'Test Card'}]
@@ -90,13 +95,13 @@ describe 'Player', ->
       expect(player.dead()).toBe true
 
     it 'returns true if the player has no cards', ->
-      player = new Player
+      player = new Player()
       expect(player.out_of_cards()).toBe true
       expect(player.dead()).toBe true
 
   describe '#out_of_cards', ->
     it "returns true if the player has no cards", ->
-      player = new Player
+      player = new Player()
       expect(player.deck.length).toEqual 0
       expect(player.hand.length).toEqual 0
       expect(player.field.length).toEqual 0
