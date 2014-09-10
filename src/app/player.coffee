@@ -5,6 +5,7 @@ window.Player = class Player
     @hp = options['hp'] or 0
     @deck = options['deck'] or []
     @runes = options['runes'] or []
+    @opponent = options['opponent']
     @hand = []
     @field = []
     @damage_taken = 0
@@ -30,3 +31,6 @@ window.Player = class Player
 
   out_of_cards: ->
     @hand.length + @deck.length + @field.length == 0
+
+  use_ability: (ability, options...) ->
+    ability.cmd(options)

@@ -106,3 +106,14 @@ describe 'Player', ->
       expect(player.hand.length).toEqual 0
       expect(player.field.length).toEqual 0
       expect(player.out_of_cards()).toBe true
+
+  describe '#use_ability', ->
+
+    TestAbility = new Ability
+      cmd: (us, them, damage_amount) ->
+        us.take_damage damage_amount
+
+    it "calls the given Ability with the given options", ->
+      player = new Player()
+      player.use_ability(TestAbility, 500)
+      expect(player.damage_taken).toEqual 500
