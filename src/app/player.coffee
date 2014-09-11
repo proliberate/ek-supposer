@@ -32,5 +32,13 @@ window.Player = class Player
   out_of_cards: ->
     @hand.length + @deck.length + @field.length == 0
 
-  use_ability: (ability, options) ->
-    ability.activate(this, options)
+  take_turn: ->
+    return false if @dead()
+    @draw_card()
+    # @play_cards()
+    window.abilities[card.level_0_ability]() for card in @field
+    window.abilities[card.level_5_ability]() for card in @field
+    window.abilities[card.level_10_ability]() for card in @field
+    window.abilities[card.level_15_ability]() for card in @field
+    @attack()
+    return not @dead()

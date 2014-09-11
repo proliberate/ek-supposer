@@ -58,6 +58,12 @@ describe 'Player', ->
       expect(player.hand[0] instanceof Card).toBe true
       expect(player.hand[0].name).toEqual 'Test Card'
 
+  describe '#play_cards', ->
+
+    it 'decreases the wait count of all cards in the hand by 1'
+
+    it 'moves all cards with wait times <= 0 to the field'
+
   describe '#take_damage', ->
     it 'increases the value of damage_taken by the given amount', ->
       player = new Player()
@@ -103,3 +109,4 @@ describe 'Player', ->
       expect(player.hand.length).toEqual 0
       expect(player.field.length).toEqual 0
       expect(player.out_of_cards()).toBe true
+    
