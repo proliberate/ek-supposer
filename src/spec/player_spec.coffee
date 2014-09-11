@@ -85,11 +85,6 @@ describe 'Player', ->
       player1.attack(player2)
       expect(player2.take_damage).toHaveBeenCalledWith(50)
 
-  describe '#take_turn', ->
-    player1 = new Player()
-    player2 = new Player()
-    it 'takes a turn'
-
   describe '#dead', ->
     it 'returns true if damage_taken exceeds max_hp', ->
       player = new Player(base_hp: 100)

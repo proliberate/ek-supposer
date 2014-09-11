@@ -9,10 +9,10 @@ window.Card = class Card
     @attack_per_level = options['attack_per_level'] or 0
     @base_hp = options['base_hp'] or 0
     @hp_per_level = options['hp_per_level'] or 0
-    @level_0_ability = options['level_0_ability'] or 0
-    @level_5_ability = options['level_5_ability'] or 0
-    @level_10_ability = options['level_10_ability'] or 0
-    @level_15_ability = options['level_15_ability'] or 0
+    @level_0_ability = options['level_0_ability'] or "NullAbility"
+    @level_5_ability = options['level_5_ability'] or "NullAbility"
+    @level_10_ability = options['level_10_ability'] or "NullAbility"
+    @level_15_ability = options['level_15_ability'] or "NullAbility"
     @damage_taken = 0
     @effects = []
 

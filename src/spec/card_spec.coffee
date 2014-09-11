@@ -49,18 +49,18 @@ describe 'Card', ->
         
     describe 'level_5_ability', ->
       it 'returns the name of the card\'s level 5 ability as a string', ->
-        card = new Card(level_0_ability: "Test Ability 2")
-        expect(card.level_0_ability).toEqual "Test Ability 2"
+        card = new Card(level_5_ability: "Test Ability 2")
+        expect(card.level_5_ability).toEqual "Test Ability 2"
 
     describe 'level_10_ability', ->
       it 'returns the name of the card\'s level 10 ability as a string', ->
-        card = new Card(level_0_ability: "Test Ability 3")
-        expect(card.level_0_ability).toEqual "Test Ability 3"
+        card = new Card(level_10_ability: "Test Ability 3")
+        expect(card.level_10_ability).toEqual "Test Ability 3"
 
     describe 'level_15_ability', ->
       it 'returns the name of the card\'s level 15 ability as a string', ->
-        card = new Card(level_0_ability: "Test Ability 4")
-        expect(card.level_0_ability).toEqual "Test Ability 4"
+        card = new Card(level_15_ability: "Test Ability 4")
+        expect(card.level_15_ability).toEqual "Test Ability 4"
 
     describe 'level', ->
       it 'returns the card\'s level as an integer', ->
