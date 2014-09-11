@@ -112,7 +112,6 @@ describe 'Player', ->
   describe '#use_ability', ->
     it "calls the given Ability with the given options", ->
       player = new Player()
-      player.opponent = {}
       TestAbility = new Ability()
       spyOn TestAbility, 'activate'
       player.use_ability(TestAbility, 500)

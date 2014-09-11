@@ -1,2 +1,5 @@
 window.Ability = class Ability
-  constructor: (@cmd) ->
+  constructor: (@cmd=( (options={}) -> ), options={}) ->
+
+  activate: (player, options={}) ->
+    @cmd.call(player, options)

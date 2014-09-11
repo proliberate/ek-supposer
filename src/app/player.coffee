@@ -32,5 +32,5 @@ window.Player = class Player
   out_of_cards: ->
     @hand.length + @deck.length + @field.length == 0
 
-  use_ability: (ability, options...) ->
-    ability.cmd(options)
+  use_ability: (ability, options) ->
+    ability.activate(this, options)
