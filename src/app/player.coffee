@@ -11,10 +11,11 @@ window.Player = class Player
     @damage_taken = 0
 
   draw_card: ->
-    index = Math.floor(Math.random() * @deck.length)
-    card = @deck.splice(index, 1)
-    card = new Card( card[0] )
-    @hand.push card
+    unless @deck.length <= 0
+      index = Math.floor(Math.random() * @deck.length)
+      card = @deck.splice(index, 1)
+      card = new Card( card[0] )
+      @hand.push card
 
   play_cards: ->
     for card, index in @hand
@@ -40,7 +41,7 @@ window.Player = class Player
   take_turn: ->
     return false if @dead()
     @draw_card()
-    # @play_cards()
+    @play_cards()
     window.abilities[card.level_0_ability]() for card in @field
     window.abilities[card.level_5_ability]() for card in @field
     window.abilities[card.level_10_ability]() for card in @field

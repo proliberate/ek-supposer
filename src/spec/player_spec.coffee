@@ -46,14 +46,19 @@ describe 'Player', ->
         expect(player.damage_taken).toEqual 500
 
   describe '#draw_card', ->
-    deck = [{name: 'Test Card'}]
-    player = new Player(deck: deck)
+    
+    it 'does nothing if the deck is empty', ->
+      player = new Player()
+      player.draw_card()
+      expect(player.hand.length).toEqual 0
 
     it 'removes an object at a random index from the deck', ->
+      player = new Player(deck: [{name: 'Test Card'}])
       player.draw_card()
       expect(player.deck.length).toEqual 0
 
     it 'initializes a new Card using the object, and adds that Card to the hand', ->
+      player = new Player(deck: [{name: 'Test Card'}])
       player.draw_card()
       expect(player.hand[0] instanceof Card).toBe true
       expect(player.hand[0].name).toEqual 'Test Card'
