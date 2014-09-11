@@ -19,6 +19,8 @@ module.exports = (grunt) ->
     jasmine:
       src: 'lib/app/**/*.js'
       options:
+        display: 'short'
+        summary: true
         specs: 'lib/spec/**/*.js'
 
     coffee:

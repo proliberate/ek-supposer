@@ -65,23 +65,25 @@ describe 'Player', ->
       expect(player.damage_taken).toEqual 500
 
   describe '#attack', ->
-    card = { name: 'Test Card 1', base_hp: 500, base_attack: 50 }
-    card2 = { name: 'Test Card 2', base_hp: 500, base_attack: 70 }
+    card = {base_attack: 50 }
     player1 = new Player()
     player2 = new Player()
 
-    it 'increases defending card\'s damage_taken by adjacent attacking card\'s attack', ->
+    it 'calls opposite_card.take_damage(attacking_card.total_attack_score())', ->
       player1.field.push new Card(card)
-      player2.field.push new Card(card2)
+      player2.field.push new Card(card)
+      spyOn player2.field[0], 'take_damage'
+      spyOn player2, 'take_damage'
       player1.attack(player2)
-      expect(player2.damage_taken).toEqual 0
-      expect(player2.field[0].damage_taken).toEqual 50
+      expect(player2.field[0].take_damage).toHaveBeenCalledWith(50)
+      expect(player2.take_damage).not.toHaveBeenCalled()
 
-
-    it 'increases defending player\'s damage_taken by the summed attack of non-adjacent attacking cards', ->
+    it 'calls opponent.take_damage(attacking_card.total_attack_score()) where there is no opposite card', ->
       player1.field.push new Card(card)
       player1.attack(player2)
-      expect(player2.damage_taken).toEqual 50
+      spyOn player2, 'take_damage'
+      player1.attack(player2)
+      expect(player2.take_damage).toHaveBeenCalledWith(50)
 
   describe '#take_turn', ->
     player1 = new Player()
@@ -108,12 +110,10 @@ describe 'Player', ->
       expect(player.out_of_cards()).toBe true
 
   describe '#use_ability', ->
-
-    TestAbility = new Ability
-      cmd: (us, them, damage_amount) ->
-        us.take_damage damage_amount
-
     it "calls the given Ability with the given options", ->
       player = new Player()
+      player.opponent = {}
+      TestAbility = new Ability()
+      spyOn TestAbility, 'activate'
       player.use_ability(TestAbility, 500)
-      expect(player.damage_taken).toEqual 500
+      expect(TestAbility.activate).toHaveBeenCalledWith(player, 500)
