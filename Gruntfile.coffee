@@ -37,6 +37,9 @@ module.exports = (grunt) ->
         dest: 'lib'
         ext: '.js'
         filter: isModified
+      production:
+        files:
+          'lib/app/main.js' : 'src/app/**/*.coffee'
 
   grunt.loadNpmTasks('grunt-contrib-jasmine')
   grunt.loadNpmTasks('grunt-contrib-coffee')
