@@ -25,12 +25,12 @@ window.Player = class Player
   take_damage: (amount) ->
     @damage_taken += amount
 
-  attack: (opponent) ->
+  attack: ->
     for card, index in @field
-      if index >= opponent.field.length
-        opponent.take_damage card.total_attack_score()
+      if index >= @opponent.field.length
+        @opponent.take_damage card.total_attack_score()
       else
-        opponent.field[index].take_damage card.total_attack_score()
+        @opponent.field[index].take_damage card.total_attack_score()
 
   dead: ->
     (@damage_taken >= @hp) or @out_of_cards()
@@ -40,8 +40,8 @@ window.Player = class Player
 
   take_turn: ->
     return false if @dead()
-    @draw_card()
     @play_cards()
+    @draw_card()
     window.abilities[card.level_0_ability]() for card in @field
     window.abilities[card.level_5_ability]() for card in @field
     window.abilities[card.level_10_ability]() for card in @field

@@ -87,25 +87,25 @@ describe 'Player', ->
       expect(player.damage_taken).toEqual 500
 
   describe '#attack', ->
-    card = {base_attack: 50 }
-    player1 = new Player()
-    player2 = new Player()
 
-    it 'calls opposite_card.take_damage(attacking_card.total_attack_score())', ->
-      player1.field.push new Card(card)
-      player2.field.push new Card(card)
-      spyOn player2.field[0], 'take_damage'
-      spyOn player2, 'take_damage'
-      player1.attack(player2)
-      expect(player2.field[0].take_damage).toHaveBeenCalledWith(50)
-      expect(player2.take_damage).not.toHaveBeenCalled()
+    beforeEach ->
+      @player = new Player()
+      @player.opponent = new Player()
+      @expected_damage = 50
+      @player.field.push new Card(base_attack: @expected_damage)
+      @player.opponent.field.push new Card(base_attack: @expected_damage)
+      spyOn @player.opponent, 'take_damage'
+      spyOn @player.opponent.field[0], 'take_damage'
 
-    it 'calls opponent.take_damage(attacking_card.total_attack_score()) where there is no opposite card', ->
-      player1.field.push new Card(card)
-      player1.attack(player2)
-      spyOn player2, 'take_damage'
-      player1.attack(player2)
-      expect(player2.take_damage).toHaveBeenCalledWith(50)
+    it 'damages opposing cards', ->
+      @player.attack()
+      expect(@player.opponent.field[0].take_damage).toHaveBeenCalledWith(@expected_damage)
+      expect(@player.opponent.take_damage).not.toHaveBeenCalled()
+
+    it 'damages the opposing player if her field contains fewer cards then the attacker', ->
+      @player.opponent.field = []
+      @player.attack()
+      expect(@player.opponent.take_damage).toHaveBeenCalledWith(@expected_damage)
 
   describe '#dead', ->
     it 'returns true if damage_taken exceeds max_hp', ->
