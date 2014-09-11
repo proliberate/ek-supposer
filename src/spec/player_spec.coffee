@@ -108,11 +108,3 @@ describe 'Player', ->
       expect(player.hand.length).toEqual 0
       expect(player.field.length).toEqual 0
       expect(player.out_of_cards()).toBe true
-
-  describe '#use_ability', ->
-    it "calls the given Ability with the given options", ->
-      player = new Player()
-      TestAbility = new Ability()
-      spyOn TestAbility, 'activate'
-      player.use_ability(TestAbility, 500)
-      expect(TestAbility.activate).toHaveBeenCalledWith(player, 500)
