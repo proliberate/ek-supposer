@@ -60,18 +60,20 @@ describe 'Player', ->
 
   describe '#play_cards', ->
 
-    player = new Player()
-
     it 'decreases the wait count of all cards in the hand by 1', ->
-      player.hand.push { wait: 2 }
+      player = new Player()
+      card = { wait: 2 }
+      player.hand.push card
       player.play_cards()
       expect(player.hand[0].wait).toEqual 1
 
     it 'then moves all cards with wait times <= 0 to the field', ->
-      player.hand.push { wait: 1 }
+      player = new Player()
+      card = { wait: 1 }
+      player.hand.push card
       player.play_cards()
-      expect(player.hand.length).toEqual 0
-      expect(player.field[0]).toBeDefined()
+      expect(player.hand).not.toContain card
+      expect(player.field).toContain card
 
   describe '#take_damage', ->
     it 'increases the value of damage_taken by the given amount', ->

@@ -16,6 +16,11 @@ window.Player = class Player
     card = new Card( card[0] )
     @hand.push card
 
+  play_cards: ->
+    for card, index in @hand
+      card.wait--
+      @field.push @hand.splice(index,1)[0] if card.wait <= 0
+
   take_damage: (amount) ->
     @damage_taken += amount
 
