@@ -1,3 +1,5 @@
+window.abilities = { NullAbility: -> }
+
 window.Player = class Player
   constructor: (options={}) ->
     @name = options['name'] or ''
@@ -8,6 +10,7 @@ window.Player = class Player
     @opponent = options['opponent']
     @hand = []
     @field = []
+    @cemetery = []
     @damage_taken = 0
 
   draw_card: ->
@@ -30,7 +33,10 @@ window.Player = class Player
       if index >= @opponent.field.length
         @opponent.take_damage card.total_attack_score()
       else
-        @opponent.field[index].take_damage card.total_attack_score()
+        defender = @opponent.field[index]
+        defender.take_damage card.total_attack_score()
+        if(defender.dead())
+          @opponent.cemetery.push @opponent.field.splice(index, 1)[0]
 
   dead: ->
     (@damage_taken >= @hp) or @out_of_cards()
